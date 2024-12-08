@@ -13,22 +13,15 @@ def train():
     parser.add_argument("--epochs", type=int, default=20, help="Number of epochs")
     parser.add_argument("--gpu", action="store_true", help="Use GPU if available")
     args = parser.parse_args()
-    
-    # Load data
+
     dataloaders, class_to_idx = load_data(args.data_dir)
-    
-    # Build model
     model, optimizer, criterion = build_model(args.arch, args.hidden_units, args.learning_rate)
-    
-    # Train model
     device = torch.device("cuda" if args.gpu and torch.cuda.is_available() else "cpu")
     model.to(device)
     
     for epoch in range(args.epochs):
-        # Training loop...
         pass
-    
-    # Save checkpoint
+        
     save_checkpoint(model, optimizer, class_to_idx, args.save_dir, args.arch)
 
 if __name__ == "__main__":
