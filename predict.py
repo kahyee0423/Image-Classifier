@@ -12,18 +12,12 @@ def main():
     parser.add_argument("--gpu", action="store_true", help="Use GPU if available")
     args = parser.parse_args()
     
-    # Load model
     model = load_checkpoint(args.checkpoint)
-    
-    # Process image
     image = process_image(args.input)
-    
-    # Predict
     device = torch.device("cuda" if args.gpu and torch.cuda.is_available() else "cpu")
     model.to(device)
     probs, classes = predict(image, model, args.top_k, device)
-    
-    # Map categories to names if provided
+
     if args.category_names:
         with open(args.category_names, 'r') as f:
             cat_to_name = json.load(f)
